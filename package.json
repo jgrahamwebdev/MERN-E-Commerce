@@ -1,0 +1,22 @@
+{
+  "name": "mern-udemy",
+  "version": "1.0.0",
+  "description": "MERN E-Commerce App",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jgrahamwebdev/MERN-E-Commerce.git"
+  },
+  "author": "jgraham",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jgrahamwebdev/MERN-E-Commerce/issues"
+  },
+  "homepage": "https://github.com/jgrahamwebdev/MERN-E-Commerce#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
