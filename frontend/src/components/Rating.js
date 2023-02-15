@@ -69,6 +69,7 @@ Rating.defaultProps = {
 }
 
 Rating.propTypes = {
+    //If you get a console error that says: "Failed prop type: The prop `value` is marked as required in `Rating`, but its value is `undefined`" you can delete the .isRequired on value and it takes it away.
     value: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired,
     color: PropTypes.string,
