@@ -2,7 +2,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
-import products from './data/products.js'
+import productRoutes from './routes/productRoutes.js';
 
 dotenv.config()
 
@@ -15,16 +15,8 @@ app.get('/', (req, res) => {
     res.send('API is running...')
 })
 
-//API Route for ALL Products
-app.get('/api/products', (req, res) => {
-    res.json(products)
-})
-
-//API Route for ONE Product
-app.get('/api/products/:id', (req, res) => {
-    const product = products.find(p => p._id === req.params.id)
-    res.json(product)
-})
+//Mount productRoutes
+app.use('/api/products', productRoutes)
 
 //Environment Variables Implementation:
 const PORT = process.env.PORT || 5000
