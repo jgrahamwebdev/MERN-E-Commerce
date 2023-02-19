@@ -1,28 +1,27 @@
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../components/Rating';
-import axios from 'axios';
+import { listProductDetails } from '../actions/productActions';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 const ProductScreen = ({ match }) => {
-    //useParams MUST go at the TOP
+    const dispatch = useDispatch()
+    const productDetails = useSelector(state => state.productDetails)
+    const { loading, error, product } = productDetails
     const { id } = useParams();
-    const [product, setProduct] = useState({});
-    
+
     useEffect(() => {
-      const fetchProduct = async () => {
-        const { data } = await axios.get(`/api/products/${id}`);
-        
-        setProduct(data);
-      }
-   
-      fetchProduct();
-    }, [id]);
+        dispatch(listProductDetails(id))
+    }, [dispatch, id]);
 
     return (
         <>
             <Link className='btn btn-light my-3' to='/'>Go Back</Link>
+            {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
             <Row>
                 <Col md={6}>
                     <Image src={product.image} alt={product.name} fluid />
@@ -77,6 +76,7 @@ const ProductScreen = ({ match }) => {
                     </Card>
                 </Col>
             </Row>
+            )}
         </>
     )
 }
