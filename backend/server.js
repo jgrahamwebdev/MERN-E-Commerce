@@ -4,12 +4,16 @@ import dotenv from 'dotenv'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import connectDB from './config/db.js'
 import productRoutes from './routes/productRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 dotenv.config()
 
 connectDB()
 
 const app = express()
+
+//Body Parser
+app.use(express.json())
 
 //Message sent to the Client
 app.get('/', (req, res) => {
@@ -18,6 +22,9 @@ app.get('/', (req, res) => {
 
 //Mount productRoutes
 app.use('/api/products', productRoutes)
+
+//Mount userRoutes
+app.use('/api/users', userRoutes)
 
 //Custom Error Middlware calls:
 app.use(notFound)
