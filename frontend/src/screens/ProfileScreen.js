@@ -51,7 +51,7 @@ const ProfileScreen = () => {
     return (
        <Row>
         <Col md={3}>
-            <h2>User Profile:</h2>
+            <h2>Your Profile:</h2>
             {message && <Message variant='danger'>{message}</Message>}
             {success && <Message variant='success'>Update successful!</Message>}
             {error && <Message variant='danger'>{error}</Message>}
@@ -83,7 +83,7 @@ const ProfileScreen = () => {
             </Form>
         </Col>
         <Col md={9}>
-            <h2>My Orders:</h2>
+            <h2>Your Orders:</h2>
         </Col>
        </Row>
     )
