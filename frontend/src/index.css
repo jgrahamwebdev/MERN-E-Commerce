@@ -27,3 +27,11 @@ h1 {
     width: 100%;
 }
 
+.fa-paypal {
+   margin: 0 10px;
+}
+
+.fa-x {
+    color: rgb(221, 81, 81);
+    font-size: 1.2rem;
+}
