@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from 'react';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,11 +8,11 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { getOrderDetails } from '../actions/orderActions';
 
+
 const OrderScreen = ({match}) => {
     const dispatch = useDispatch()
     const history = useNavigate()
     const { id } = useParams();
-    //const orderId = match.params.id
 
     const orderDetails = useSelector(state => state.orderDetails)
     const { order, loading, error } = orderDetails
@@ -129,11 +130,31 @@ const OrderScreen = ({match}) => {
                                 </Row>
                             </ListGroup.Item>
                             
-                            {order.isDelivered ? <Message variant='success'>Delivered on {order.deliveredAt}</Message> : <Message variant='danger'>Order has not been delivered</Message>} 
+                            {/* {order.isDelivered ? <Message variant='success'>Delivered on {order.deliveredAt}</Message> : <Message variant='danger'>Order has not been delivered</Message>}  */}
 
-                            {order.isPaid ? <Message variant='success'>Paid on {order.paidAt}</Message> : <Message variant='danger'>Order has not been paid</Message>}   
+                            {/* {order.isPaid ? <Message variant='success'>Paid on {order.paidAt}</Message> : <Message variant='danger'>Order has not been paid</Message>}   */}
 
-                        </ListGroup>
+                           <PayPalScriptProvider options={{ "client-id": "Aa5UVt3sU5hkBc0Uj0OuNwwedkJMbOsJYFCCNXyssyWQYTWfE90QC_1t2EgtpMoOdAvWX4GLEkNrx89_" }}>
+                                <PayPalButtons createOrder={(data, actions) => {
+                                    return actions.order.create({
+                                        purchase_units: [
+                                            {
+                                                amount: {
+                                                    value: `${order.totalPrice}`,
+                                                },
+                                            },
+                                        ],
+                                    });
+                                }}                            
+                                onApprove={async (data, actions) => {
+                                    const details = await actions.order.capture();
+                                    alert("Thank you " + `${order.user.name}` + " your order has been placed! 🎉");
+                                    
+                                }}
+                                />                             
+                           </PayPalScriptProvider> 
+                      
+                        </ListGroup>                          
                     </Card>
                 </Col>
             </Row>

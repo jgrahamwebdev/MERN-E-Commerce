@@ -30,6 +30,9 @@ app.use('/api/users', userRoutes)
 //Mount orderRoutes
 app.use('/api/orders', orderRoutes)
 
+//PayPal Route:
+// app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID))
+
 //Custom Error Middlware calls:
 app.use(notFound)
 app.use(errorHandler)
