@@ -28,10 +28,11 @@ const PlaceOrderScreen = () => {
     useEffect(() => {
         if(success) {
             history(`/order/${order._id}`)
+            dispatch({ type: 'ORDER_CREATE_RESET' })
         }
         // eslint-disable-next-line
     }, [success])
-
+  
     const placeOrderHandler = () => {
         dispatch(createOrder({
             orderItems: cart.cartItems, shippingAddress: cart.shippingAddress, paymentMethod: cart.paymentMethod, itemsPrice: cart.itemsPrice, shippingPrice: cart.shippingPrice, taxPrice: cart.taxPrice, totalPrice: cart.totalPrice

@@ -39,7 +39,7 @@ const Header = () => {
                             </LinkContainer>
 
                             { userInfo ? (
-                                <NavDropdown title={`Hi, ${userInfo.name}`} id='username'>
+                                <NavDropdown title={userInfo.isAdmin ? (`${userInfo.name}`) : (`Hi, ${userInfo.name}`)} id='username'>
                                     <LinkContainer to='/profile'>
                                         <NavDropdown.Item>
                                             Profile
@@ -49,13 +49,34 @@ const Header = () => {
                                         Logout
                                     </NavDropdown.Item>
                                 </NavDropdown>
-                            ) :
+                            ) : (
                                 <LinkContainer to="/login">
                                     <Nav.Link>
                                         <i className='fas fa-user'></i> Sign In
                                     </Nav.Link>
                                 </LinkContainer>
-                            }
+                            )}
+                            {userInfo && userInfo.isAdmin && (
+                                <NavDropdown title='Admin' id='adminmenu'>
+                                    <LinkContainer to='/admin/userlist'>
+                                        <NavDropdown.Item>
+                                            Users <i class="fa-solid fa-user"></i>
+                                        </NavDropdown.Item>
+                                    </LinkContainer>
+
+                                    <LinkContainer to='/admin/productlist'>
+                                        <NavDropdown.Item>
+                                            Products <i class="fa-solid fa-clipboard-list"></i>
+                                        </NavDropdown.Item>
+                                    </LinkContainer>
+
+                                    <LinkContainer to='/admin/orderlist'>
+                                        <NavDropdown.Item>
+                                            Orders <i class="fas fa-shipping-fast"></i>
+                                        </NavDropdown.Item>
+                                    </LinkContainer>
+                                </NavDropdown>
+                            )}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
