@@ -42,7 +42,7 @@ const UserListScreen = () => {
                         <th>NAME</th>
                         <th>EMAIL</th>
                         <th>ADMIN</th>
-                        <th></th>
+                        {/* <th></th> */}
                     </tr>
                 </thead>
 
@@ -55,7 +55,7 @@ const UserListScreen = () => {
                             <td>
                                 {user.isAdmin ? (<i class="fas fa-thumbs-up" style={{ color: '#2ecc71', fontSize: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center'}}></i>) : (<i className='fas fa-times' style={{ color: 'red', fontSize: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center'}}></i>)}
                             </td>
-                            <td>
+                            {/* <td>
                                 <LinkContainer to={`/user/${user._id}/edit`}>
                                     <Button variant='light' className='btn-sm'>
                                         <i className='fas fa-edit'></i>
@@ -64,7 +64,7 @@ const UserListScreen = () => {
                                 <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(user._id)}>
                                     <i className='fas fa-trash'></i>
                                 </Button>
-                            </td>
+                            </td> */}
                         </tr>
                     ))}
                 </tbody>
