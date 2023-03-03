@@ -38,7 +38,7 @@ const ShippingScreen = () => {
 
                 <Form.Group controlId='city' className='my-3'>
                     <Form.Label>City:</Form.Label>
-                    <Form.Control type='text' placeholder='Enter city' value={city} required onChange={(e) => setCity(e.target.value)}></Form.Control>
+                    <Form.Control type='text' placeholder='City & State (if applicable)' value={city} required onChange={(e) => setCity(e.target.value)}></Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId='postalCode' className='my-3'>

@@ -31,14 +31,14 @@ const Header = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     {/* ms-auto pushes links to far right of container */}
                     <Nav className="ms-auto">
-
+                                            
                             <LinkContainer to="/cart">
-                                <Nav.Link >
+                                <Nav.Link>
                                     <i className='fas fa-shopping-cart'></i> Cart
                                 </Nav.Link>
                             </LinkContainer>
-
-                            { userInfo ? (
+                      
+                            {userInfo ? (
                                 <NavDropdown title={userInfo.isAdmin ? (`${userInfo.name}`) : (`Hi, ${userInfo.name}`)} id='username'>
                                     <LinkContainer to='/profile'>
                                         <NavDropdown.Item>
