@@ -6,7 +6,7 @@ import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { getOrderDetails } from '../actions/orderActions';
+import { getOrderDetails, deliverOrder } from '../actions/orderActions';
 
 
 const OrderScreen = ({match}) => {
@@ -16,6 +16,12 @@ const OrderScreen = ({match}) => {
 
     const orderDetails = useSelector(state => state.orderDetails)
     const { order, loading, error } = orderDetails
+
+    const orderDeliver = useSelector(state => state.orderDeliver)
+    const { loading: loadingDeliver, success: successDeliver } = orderDeliver
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
 
     //Price Calculations:
     if(!loading) {
@@ -28,10 +34,18 @@ const OrderScreen = ({match}) => {
     }
 
     useEffect(() => {
-        if(!order || order._id !== id) {
+        if(!userInfo) {
+            history('/login')
+        }
+        if(!order || successDeliver || order._id !== id) {
+            dispatch({ type: 'ORDER_DELIVER_RESET' })
             dispatch(getOrderDetails(id))
         }
-    }, [order, id])
+    }, [dispatch, order, id, successDeliver])
+
+    const deliverHandler = () => {
+        dispatch(deliverOrder(order))
+    }
 
     return (
         loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : <>
@@ -149,12 +163,19 @@ const OrderScreen = ({match}) => {
                                 }}                            
                                 onApprove={async (data, actions) => {
                                     const details = await actions.order.capture();
-                                    alert("Thank you " + `${order.user.name}` + " your order has been placed! 🎉");
-                                    
+                                    alert("Thank you " + `${order.user.name}` + " your order has been placed! 🎉 We will send an email with a copy of your invoice and tracking number when your order ships out.");
                                 }}
                                 />                             
                            </PayPalScriptProvider> 
                       
+                            {loadingDeliver && <Loader />}   
+                            {userInfo && userInfo.isAdmin && !order.isDelivered && (
+                                <ListGroup.Item>
+                                    <Button type='button' variant='success' className='btn btn-block' onClick={deliverHandler}>
+                                            Mark As Delivered
+                                    </Button>
+                                </ListGroup.Item>
+                            )}
                         </ListGroup>                          
                     </Card>
                 </Col>

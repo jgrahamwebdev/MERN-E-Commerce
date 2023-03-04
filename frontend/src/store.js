@@ -6,7 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { productListReducer, productDetailsReducer, productDeleteReducer, productCreateReducer, productUpdateReducer } from './reducers/productReducers'
 import { cartReducer } from './reducers/cartReducers';
 import { userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userListReducer } from './reducers/userReducers';
-import { orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListMyReducer } from './reducers/orderReducers';
+import { orderCreateReducer, orderDetailsReducer, orderPayReducer, orderDeliverReducer, orderListMyReducer, orderListReducer } from './reducers/orderReducers';
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
 
@@ -30,7 +30,9 @@ const store = configureStore({
         orderCreate: orderCreateReducer,
         orderDetails: orderDetailsReducer,
         orderPay: orderPayReducer,
+        orderDeliver: orderDeliverReducer,
         orderListMy: orderListMyReducer,
+        orderList: orderListReducer,
     },
     preloadedState: {
         cart: { 
