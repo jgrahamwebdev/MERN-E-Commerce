@@ -172,7 +172,7 @@ const OrderScreen = ({match}) => {
                             {userInfo && userInfo.isAdmin && !order.isDelivered && (
                                 <ListGroup.Item>
                                     <Button type='button' variant='success' className='btn btn-block' onClick={deliverHandler}>
-                                            Mark As Delivered
+                                            Mark As Shipped
                                     </Button>
                                 </ListGroup.Item>
                             )}

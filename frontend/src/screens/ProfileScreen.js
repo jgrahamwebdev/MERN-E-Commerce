@@ -8,6 +8,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import { listMyOrders } from '../actions/orderActions';
+import Rating from '../components/Rating';
 
 const ProfileScreen = () => {
     const navigate = useNavigate();
@@ -18,6 +19,9 @@ const ProfileScreen = () => {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message, setMessage] = useState(null)
     const dispatch = useDispatch() 
+
+    const productDetails = useSelector(state => state.productDetails)
+    const { loading: loadingReview, error: errorReview, product } = productDetails
 
     const userDetails = useSelector((state) => state.userDetails);
     const { loading, error, user } = userDetails;
@@ -101,7 +105,7 @@ const ProfileScreen = () => {
                 <th>ID</th>
                 <th>DATE</th>
                 <th>TOTAL</th>
-                <th>DELIVERED</th>
+                <th>SHIPPED</th>
                 <th></th>
               </tr>
             </thead>
@@ -131,6 +135,31 @@ const ProfileScreen = () => {
             </tbody>
           </Table>
         )}
+
+        <Row>
+          <h2>My Reviews</h2>
+          <Table striped bordered hover responsive className='table-sm'>
+            <thead>
+              <tr>
+                <th>STARS</th>
+                <th>COMMENT</th>
+                <th>DATE</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {product.reviews.length === 0 && <Message>No Reviews</Message>}
+              {product.reviews.map(review => (                      
+                <tr key={review._id}>
+                    <Rating value={review.rating} />
+                    <td>{review.comment}</td>
+                    <td>{review.createdAt.substring(0, 10)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Row>
+
       </Col>
      </Row>
     )
