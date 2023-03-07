@@ -49,3 +49,12 @@ h1 {
 .newsTitle {
     color: #fff;
 }
+
+.footerIcons {
+    font-size: 2rem;
+    padding-right: 1rem;
+    cursor: pointer;
+}
+.footerIcons:hover {
+    color: #2ecc71;
+}
