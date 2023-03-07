@@ -7,6 +7,7 @@ import Product from "../components/Product";
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listProducts } from '../actions/productActions';
+import Newsletter from '../components/Newsletter';
 
 const HomeScreen = () => {
     const dispatch = useDispatch()
@@ -33,6 +34,8 @@ const HomeScreen = () => {
                     ))}
                 </Row>
             }
+
+            <Newsletter />
         </>
     )
 }
